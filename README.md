@@ -37,3 +37,18 @@
 
 - Properties of Component
 - Similar to HTML element attributes
+
+## State
+
+- Mutable(changeable) object
+- Whenever state value changes, UI is re-rendered
+- State value changes on user interaction, event triggers or API calls.
+
+## Hooks
+
+- Special function
+- It enables us to make functional component stateful.
+
+1. useState: used for local state management
+2. useEffect: side effects
+3. useRef: accessing DOM elements

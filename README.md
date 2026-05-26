@@ -52,3 +52,12 @@
 1. useState: used for local state management
 2. useEffect: side effects
 3. useRef: accessing DOM elements
+
+## React router
+
+- Route is a URL endpoint
+- Route defines which component/page to show on URL match
+
+/contact => Contact page
+/about => About page
+/ => Home page

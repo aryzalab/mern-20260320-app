@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import useReminderStore from "../store/reminderStore";
 
 const ReminderCard = ({
   id,
@@ -15,12 +16,14 @@ const ReminderCard = ({
   if (status == "COMPLETED") cardColor = "bg-green-50";
   if (status == "CANCELLED") cardColor = "bg-red-50";
 
+  const { markCompleted } = useReminderStore();
+
   return (
     <div
-      className={`shadow rounded-2xl p-6 max-w-2xl hover:-translate-y-1 transition-all duration-300 ${cardColor}`}
+      className={`shadow rounded-2xl p-6 hover:-translate-y-1 transition-all duration-300 ${cardColor}`}
     >
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-2 gap-x-4">
-        <h2 className="text-3xl font-medium">{title}</h2>
+      <div className="flex justify-between items-start gap-x-4">
+        <h2 className="text-xl sm:text-3xl font-medium">{title}</h2>
         <div className="flex gap-2">
           <Link
             to={`/edit/${id}`}
@@ -41,8 +44,11 @@ const ReminderCard = ({
         <span>🕗 {time}</span>
       </div>
       <p className="mb-4 mt-4">{description}</p>
-      {!isUpcoming && (
-        <button className="bg-orange-500 rounded-lg px-4 py-1.5 text-white">
+      {!isUpcoming && status == "PENDING" && (
+        <button
+          onClick={() => markCompleted(id)}
+          className="bg-orange-500 rounded-lg px-4 py-1.5 text-white"
+        >
           Mark as Completed
         </button>
       )}

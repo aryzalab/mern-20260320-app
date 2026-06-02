@@ -1,63 +1,29 @@
-# React
+# Next.js
 
-- Library for web and native UI
-- Built and maintained by Facebook
-- Used to build single page app
-- Uses virtual DOM for rendering
-- Most popular frontend framework
-- Huge community
-- Job opportunities
+- React.js full-stack framework for web-development
+- In addition to building UI, next.js also provides features like routing, rendering, optimization, data fetching, etc.
+- It uses react server component
+- Opinionated framework (file, folder conventions)
 
-## Virtual DOM
+## Features
 
-- Light weight copy of real DOM
-- Whenever state change happens:
-  - React updates the virtual DOM
-  - Compares virtual DOM with previous DOM (Diffing)
-  - Updates only the changed parts in the real DOM (Reconciliation)
-- Faster rendering
-- Better performance
+1. Routing: file based routing
+2. Rendering: Server-Side rendering (SSR), Client-side rendering (CSR), Static site generation (SSG)
+3. Optimization: Image, file
+4. Data fetching/File system
+5. API routes
+6. Styling
 
-## JSX
+## React server component
 
-- JS + HTML code
+### 1. Server component (default)
 
-## Components
+- All react component in Next.js are server component by default.
+- Server side tasks like data fetching, files read, database data fetching, async tasks.
+- Cannot use react hooks, events, user interaction.
 
-- UI Block
-- Reusable
-- Functional Component, Class Component
-- Functional components are stateless components by default
-- Class components are stateful components
-- Stateful: State/UI can be updated
-- Stateless: State can be updated, UI cannot be updated
-- Hooks: Special function
+### 2. Client component
 
-## Props
-
-- Properties of Component
-- Similar to HTML element attributes
-
-## State
-
-- Mutable(changeable) object
-- Whenever state value changes, UI is re-rendered
-- State value changes on user interaction, event triggers or API calls.
-
-## Hooks
-
-- Special function
-- It enables us to make functional component stateful.
-
-1. useState: used for local state management
-2. useEffect: side effects
-3. useRef: accessing DOM elements
-
-## React router
-
-- Route is a URL endpoint
-- Route defines which component/page to show on URL match
-
-/contact => Contact page
-/about => About page
-/ => Home page
+- Can use react hooks, events, user interaction.
+- Traditional react components
+- Use the directive `use client` at the top of component file

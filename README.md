@@ -69,3 +69,26 @@
 7. Route groups
 
 - /src/app/(auth)
+
+## Layouts
+
+- UI component that is shared among different pages
+- `layout.js` or `layout.tsx`
+
+## Special files of Next.js
+
+- page.js
+- layout.js
+- not-found.js
+- loading.js
+- error.js // always client component
+
+## Link
+
+- <Link> for navigation, similar to <a>
+- For programmatic navigation, use the `useRouter` hook.
+
+========================
+
+## params, search params, metadata, SEO 
+## SSR, CSR, SSG

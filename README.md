@@ -64,7 +64,7 @@
 
 6. Private folders
 
-- /src/app/_folder/
+- /src/app/\_folder/
 
 7. Route groups
 
@@ -88,7 +88,26 @@
 - <Link> for navigation, similar to <a>
 - For programmatic navigation, use the `useRouter` hook.
 
-========================
+## Params & SearchParams
 
-## params, search params, metadata, SEO 
-## SSR, CSR, SSG
+1. For Server component
+
+- params: dynamic route params, available on page.js & layout.js
+- searchParams: query, available on page.js
+
+2. For client component
+
+- useParams()
+- useSearchParams()
+
+## Metadata
+
+- Metadata api is used to define metadata of the page
+- page.js / layout.js
+- Useful of search engine optimization (SEO)
+- static: metadata
+- dynamic: generateMetadata
+
+=============================
+
+## Rendering: SSR, CSR, SSG

@@ -12,7 +12,7 @@ export const metadata = {
 
 const RootLayout = ({ children }) => (
   <html lang="en">
-    <body>
+    <body className="light">
       <Header />
       {children}
     </body>

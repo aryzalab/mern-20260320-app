@@ -1,53 +1,89 @@
 "use client";
 
-import { HOME_ROUTE, navMenu } from "@/constants/routes";
+import { HOME_ROUTE, LOGIN_ROUTE, navMenu } from "@/constants/routes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import logo from "@/assets/images/logo.png";
+import Image from "next/image";
 
 const Header = () => {
   const pathName = usePathname();
 
   return (
-    <header>
-      <nav className="sticky w-full z-20 top-0 inset-s-0 shadow">
-        <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <Link
-            href={HOME_ROUTE}
-            className="flex items-center space-x-3 rtl:space-x-reverse"
-          >
-            Logo
-          </Link>
-          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <button
-              type="button"
-              className="text-white bg-blue-500 hover:bg-blue-600 box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-lg text-sm px-3 py-2 focus:outline-none"
-            >
-              Get started
-            </button>
+    <header className="py-4 shadow-md bg-white dark:bg-gray-950 sticky top-0 z-10">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <Image
+              src={logo}
+              alt="FashionWear"
+              height={32}
+              width={32}
+              className="h-9"
+            />
+            <h1 className="text-2xl font-bold mt-1 text-transparent bg-linear-to-r from-primary to-secondary bg-clip-text">
+              FashionWear
+            </h1>
           </div>
-          <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
-            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-default rounded-base bg-neutral-secondary-soft md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-              {navMenu.map((menu) => {
-                const isActive =
-                  pathName == menu.route ||
-                  (menu.route !== HOME_ROUTE &&
-                    pathName.startsWith(menu.route));
+          <nav className="items-center gap-3 hidden md:flex">
+            {navMenu.map((menu) => {
+              const isActive =
+                pathName == menu.route ||
+                (menu.route !== HOME_ROUTE && pathName.startsWith(menu.route));
 
-                return (
-                  <li key={menu.route}>
-                    <Link
-                      href={menu.route}
-                      className={`block py-2 px-3 text-heading rounded md:p-0 md:dark:hover:bg-transparent ${isActive ? "text-blue-600" : ""}`}
-                    >
-                      {menu.label}
-                    </Link>
-                  </li>
-                );
-              })}
+              return (
+                <Link
+                  key={menu.route}
+                  className={`text-dark dark:text-gray-200 px-2 py-1 hover:text-primary ${isActive ? "text-primary" : ""}`}
+                  href={menu.route}
+                >
+                  {menu.label}
+                </Link>
+              );
+            })}
+          </nav>
+          <div className="flex items-center gap-4">
+            <button
+              id="lightThemeSwitcher"
+              className="hidden dark:block px-2 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700"
+            >
+              🌞
+            </button>
+            <button
+              id="darkThemeSwitcher"
+              className="dark:hidden px-2 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700"
+            >
+              🌙
+            </button>
+            <button
+              className="px-4 pt-1 pb-2 rounded-3xl bg-gray-100 dark:bg-gray-700 h-auto"
+              popovertarget="cart"
+            >
+              🛒
+              <span className="bg-primary px-2 py-0.5 text-xs rounded-xl text-white">
+                5
+              </span>
+            </button>
+            <Link
+              className="hover:bg-primary text-white px-5 py-1.5 rounded-lg bg-primary-dark"
+              href={LOGIN_ROUTE}
+            >
+              Login
+            </Link>
+          </div>
+          <div
+            id="cart"
+            popover="auto"
+            className="bg-background shadow rounded-xl p-4 mt-0.2"
+          >
+            <ul>
+              <li>T-shirt</li>
+              <li>Leather Jacket</li>
+              <li>Jeans</li>
             </ul>
           </div>
         </div>
-      </nav>
+      </div>
     </header>
   );
 };

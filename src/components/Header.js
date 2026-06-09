@@ -1,13 +1,26 @@
 "use client";
 
-import { HOME_ROUTE, LOGIN_ROUTE, navMenu } from "@/constants/routes";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import logo from "@/assets/images/logo.png";
 import Image from "next/image";
+import Link from "next/link";
+import logo from "@/assets/images/logo.png";
+import useAuthStore from "@/stores/authStore";
+import { HOME_ROUTE, LOGIN_ROUTE, navMenu } from "@/constants/routes";
+import { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 const Header = () => {
   const pathName = usePathname();
+  const { isAuthenticated, logout } = useAuthStore.getState();
+
+  const router = useRouter();
+
+  function handleLogout() {
+    logout();
+
+    router.replace(LOGIN_ROUTE);
+  }
+
+  useEffect(() => {}, [isAuthenticated]);
 
   return (
     <header className="py-4 shadow-md bg-white dark:bg-gray-950 sticky top-0 z-10">
@@ -55,32 +68,31 @@ const Header = () => {
             >
               🌙
             </button>
-            <button
-              className="px-4 pt-1 pb-2 rounded-3xl bg-gray-100 dark:bg-gray-700 h-auto"
-              popovertarget="cart"
-            >
-              🛒
-              <span className="bg-primary px-2 py-0.5 text-xs rounded-xl text-white">
-                5
-              </span>
-            </button>
-            <Link
-              className="hover:bg-primary text-white px-5 py-1.5 rounded-lg bg-primary-dark"
-              href={LOGIN_ROUTE}
-            >
-              Login
-            </Link>
-          </div>
-          <div
-            id="cart"
-            popover="auto"
-            className="bg-background shadow rounded-xl p-4 mt-0.2"
-          >
-            <ul>
-              <li>T-shirt</li>
-              <li>Leather Jacket</li>
-              <li>Jeans</li>
-            </ul>
+
+            {isAuthenticated ? (
+              <>
+                <button className="px-4 pt-1 pb-2 rounded-3xl bg-gray-100 dark:bg-gray-700 h-auto">
+                  🛒
+                  <span className="bg-primary px-2 py-0.5 text-xs rounded-xl text-white">
+                    5
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className="hover:bg-primary text-white px-5 py-1.5 rounded-lg bg-primary-dark cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                className="hover:bg-primary text-white px-5 py-1.5 rounded-lg bg-primary-dark"
+                href={LOGIN_ROUTE}
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>

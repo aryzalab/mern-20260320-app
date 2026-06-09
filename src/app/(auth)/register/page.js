@@ -1,13 +1,27 @@
 "use client";
+
 import Link from "next/link";
-import { LOGIN_ROUTE } from "@/constants/routes";
-import { useForm } from "react-hook-form";
+import PasswordInput from "@/components/PasswordInput";
+import useAuthStore from "@/stores/authStore";
+import { HOME_ROUTE, LOGIN_ROUTE } from "@/constants/routes";
 import { signup } from "@/api/auth";
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import Spinner from "@/components/Spinner";
+import { useRouter } from "next/navigation";
 
 const RegisterPage = () => {
   const { register, handleSubmit } = useForm();
 
+  const { registerUser } = useAuthStore.getState();
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
   function submitForm(data) {
+    setLoading(true);
+
     signup({
       name: data.name,
       email: data.email,
@@ -18,8 +32,19 @@ const RegisterPage = () => {
         province: data.province,
       },
     })
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        registerUser({ user: response.data });
+
+        router.replace(HOME_ROUTE);
+
+        toast.success("Register successful!");
+      })
+      .catch((error) => {
+        console.log(error);
+
+        toast.error(error.response.data);
+      })
+      .finally(() => setLoading(false));
   }
 
   return (
@@ -121,14 +146,7 @@ const RegisterPage = () => {
                 >
                   Password
                 </label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required
-                  {...register("password")}
-                />
+                <PasswordInput id="password" {...register("password")} />
               </div>
 
               <div className="flex items-start">
@@ -158,9 +176,13 @@ const RegisterPage = () => {
               </div>
               <button
                 type="submit"
-                className="w-full text-white bg-primary hover:bg-primary-dark focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className="relative w-full text-white bg-primary hover:bg-primary-dark focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 disabled:opacity-85"
+                disabled={loading}
               >
                 Create an account
+                {loading && (
+                  <Spinner className="absolute right-3 top-2 w-6! h-6!" />
+                )}
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}

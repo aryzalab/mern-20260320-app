@@ -6,6 +6,9 @@ export const ORDER_ROUTE = "/orders";
 export const LOGIN_ROUTE = "/login";
 export const REGISTER_ROUTE = "/register";
 
+// Admin routes
+export const PRODUCT_MANAGEMENT_ROUTE = "/product-management";
+
 export const navMenu = [
   {
     label: "Home",

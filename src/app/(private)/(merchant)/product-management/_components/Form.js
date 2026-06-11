@@ -1,6 +1,6 @@
 "use client";
 
-import { addProduct } from "@/api/products";
+import { addProduct, updateProduct } from "@/api/products";
 import Spinner from "@/components/Spinner";
 import Image from "next/image";
 import { useState } from "react";
@@ -8,8 +8,10 @@ import { useForm } from "react-hook-form";
 import { FaCloudArrowUp } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
-const ProductForm = () => {
-  const { register, handleSubmit, reset } = useForm();
+const ProductForm = ({ product, isEditing = false }) => {
+  const { register, handleSubmit, reset } = useForm({
+    values: product,
+  });
 
   const [loading, setLoading] = useState(false);
 
@@ -36,19 +38,31 @@ const ProductForm = () => {
     return formData;
   }
 
+  async function upsertProduct(input) {
+    if (isEditing) {
+      return updateProduct(product._id, input);
+    }
+
+    return addProduct(input);
+  }
+
   function submitForm(data) {
     setLoading(true);
 
     const input = prepareData(data);
 
-    addProduct(input)
+    upsertProduct(input)
       .then((res) => {
-        toast.success("Product added successfully.");
+        if (isEditing) {
+          toast.success("Product updated successfully.");
+        } else {
+          toast.success("Product added successfully.");
 
-        setProductImages([]);
-        setLocalImageUrls([]);
+          setProductImages([]);
+          setLocalImageUrls([]);
 
-        reset();
+          reset();
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -221,7 +235,7 @@ const ProductForm = () => {
         className="inline-flex gap-2 items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary/20 dark:focus:ring-primary hover:bg-primary/90"
         disabled={loading}
       >
-        Add product
+        {isEditing ? "Update Product" : "Add product"}
         {loading && <Spinner className="h-5! w-5!" />}
       </button>
     </form>

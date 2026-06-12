@@ -19,7 +19,7 @@ const ProductsTable = () => {
   const { user } = useAuthStore.getState();
 
   function fetchProducts() {
-    getProducts({ userId: user._id })
+    getProducts({ createdBy: user._id })
       .then((data) => {
         setProducts(data);
       })

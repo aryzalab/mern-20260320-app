@@ -7,10 +7,13 @@ import useAuthStore from "@/stores/authStore";
 import { HOME_ROUTE, LOGIN_ROUTE, navMenu } from "@/constants/routes";
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import usePreferenceStore from "@/stores/preferenceStore";
+import { FaMoon, FaSun } from "react-icons/fa6";
 
 const Header = () => {
   const pathName = usePathname();
   const { isAuthenticated, logout } = useAuthStore.getState();
+  const { toggleTheme, theme } = usePreferenceStore.getState();
 
   const router = useRouter();
 
@@ -20,7 +23,7 @@ const Header = () => {
     router.replace(LOGIN_ROUTE);
   }
 
-  useEffect(() => {}, [isAuthenticated]);
+  useEffect(() => {}, [isAuthenticated, theme]);
 
   return (
     <header className="py-4 shadow-md bg-white dark:bg-gray-950 sticky top-0 z-10">
@@ -57,16 +60,10 @@ const Header = () => {
           </nav>
           <div className="flex items-center gap-4">
             <button
-              id="lightThemeSwitcher"
-              className="hidden dark:block px-2 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700"
+              onClick={toggleTheme}
+              className="px-2 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700"
             >
-              🌞
-            </button>
-            <button
-              id="darkThemeSwitcher"
-              className="dark:hidden px-2 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700"
-            >
-              🌙
+              {theme == "light" ? <FaMoon /> : <FaSun />}
             </button>
 
             {isAuthenticated ? (

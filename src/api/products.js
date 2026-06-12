@@ -1,11 +1,10 @@
 import config from "@/config";
 import axios from "axios";
 import api from "./api";
+import { formatParams } from "@/helpers/params";
 
 export const getProducts = async (searchParams) => {
-  let query = "";
-
-  if (searchParams?.userId) query += `createdBy=${searchParams?.userId}`;
+  const query = formatParams(searchParams);
 
   const response = await axios.get(
     `${config.apiUrl}/api/products?limit=100&${query}`,
@@ -30,4 +29,16 @@ export const updateProduct = async (id, data) => {
 
 export const deleteProduct = async (id) => {
   return await api.delete(`/api/products/${id}`);
+};
+
+export const getCategories = async () => {
+  const response = await axios.get(`${config.apiUrl}/api/products/categories`);
+
+  return response.data;
+};
+
+export const getBrands = async () => {
+  const response = await axios.get(`${config.apiUrl}/api/products/brands`);
+
+  return response.data;
 };

@@ -140,3 +140,9 @@
 - Metadata
 - By default, all components in Next.js are Server component
 - Only SSR
+
+## Products cart
+
+- Cart are locally stored in state
+- No need for auth to add products to cart
+- Needs auth for checkout products (Create order)

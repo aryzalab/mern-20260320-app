@@ -4,16 +4,24 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/images/logo.png";
 import useAuthStore from "@/stores/authStore";
-import { HOME_ROUTE, LOGIN_ROUTE, navMenu } from "@/constants/routes";
-import { useEffect } from "react";
+import {
+  CART_ROUTE,
+  HOME_ROUTE,
+  LOGIN_ROUTE,
+  navMenu,
+} from "@/constants/routes";
 import { usePathname, useRouter } from "next/navigation";
 import usePreferenceStore from "@/stores/preferenceStore";
 import { FaMoon, FaSun } from "react-icons/fa6";
+import useCartStore from "@/stores/cartStore";
 
 const Header = () => {
   const pathName = usePathname();
   const { isAuthenticated, logout } = useAuthStore.getState();
-  const { toggleTheme, theme } = usePreferenceStore.getState();
+  const { toggleTheme } = usePreferenceStore.getState();
+
+  const theme = usePreferenceStore((state) => state.theme);
+  const products = useCartStore((state) => state.products);
 
   const router = useRouter();
 
@@ -22,8 +30,6 @@ const Header = () => {
 
     router.replace(LOGIN_ROUTE);
   }
-
-  useEffect(() => {}, [isAuthenticated, theme]);
 
   return (
     <header className="py-4 shadow-md bg-white dark:bg-gray-950 sticky top-0 z-10">
@@ -61,19 +67,22 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <button
               onClick={toggleTheme}
-              className="px-2 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700"
+              className="px-2 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 dark:text-white"
             >
               {theme == "light" ? <FaMoon /> : <FaSun />}
             </button>
 
             {isAuthenticated ? (
               <>
-                <button className="px-4 pt-1 pb-2 rounded-3xl bg-gray-100 dark:bg-gray-700 h-auto">
+                <Link
+                  href={CART_ROUTE}
+                  className="px-4 pt-1 pb-2 rounded-3xl bg-gray-100 dark:bg-gray-700 h-auto"
+                >
                   🛒
                   <span className="bg-primary px-2 py-0.5 text-xs rounded-xl text-white">
-                    5
+                    {products.length}
                   </span>
-                </button>
+                </Link>
                 <button
                   type="button"
                   className="hover:bg-primary text-white px-5 py-1.5 rounded-lg bg-primary-dark cursor-pointer"

@@ -2,17 +2,27 @@ import { PRODUCTS_ROUTE } from "@/constants/routes";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import AddToCart from "./AddToCart";
+import { FaImage } from "react-icons/fa6";
 
-const ProductCard = ({ name, brand, category, price, _id, imageUrls }) => {
+const ProductCard = ({ product }) => {
+  const { name, brand, category, price, _id, imageUrls } = product;
+
   return (
     <div className="product-card">
-      <Image
-        className="w-full h-40 object-cover"
-        src={imageUrls[0]}
-        alt="featured"
-        height={300}
-        width={400}
-      />
+      {imageUrls.length > 0 ? (
+        <Image
+          className="w-full h-40 object-cover"
+          src={imageUrls[0]}
+          alt="featured"
+          height={300}
+          width={400}
+        />
+      ) : (
+        <div className="w-full h-40 flex items-center justify-center bg-primary/10">
+          <FaImage className="text-7xl text-gray-500" />
+        </div>
+      )}
       <div className="bg-white dark:bg-gray-900 pt-3 px-4 pb-4">
         <span className="bg-accent text-white text-xs font-medium px-1.5 py-0.5 rounded">
           {category}
@@ -33,9 +43,7 @@ const ProductCard = ({ name, brand, category, price, _id, imageUrls }) => {
           >
             View
           </Link>
-          <button className="bg-primary px-4 py-2 w-full text-center rounded-3xl mt-2 text-sm font-medium transition duration-300 ease text-white">
-            Add to Cart
-          </button>
+          <AddToCart product={product} />
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
 import usePreferenceStore from "@/stores/preferenceStore";
 
 const MainLayout = ({ children }) => {
-  const { theme } = usePreferenceStore.getState();
+  const theme = usePreferenceStore((state) => state.theme);
 
   return <div className={theme}>{children}</div>;
 };

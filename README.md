@@ -146,3 +146,9 @@
 - Cart are locally stored in state
 - No need for auth to add products to cart
 - Needs auth for checkout products (Create order)
+
+## Products orders
+
+- Products list are added to cart with quantity
+- A total price is calculated (price of products + discount + external charges + tax)
+- All the products, with total price is used to create an order

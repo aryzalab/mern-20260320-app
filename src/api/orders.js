@@ -20,6 +20,11 @@ export const payViaKhalti = async (id) => {
   return await api.put(`/api/orders/${id}/payment/khalti`);
 };
 
+export const payViaStripe = async (id) => {
+  return await api.put(`/api/orders/${id}/payment/stripe`);
+};
+
+
 export const payViaCash = async (id) => {
   return await api.put(`/api/orders/${id}/payment/cash`);
 };

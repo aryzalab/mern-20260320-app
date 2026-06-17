@@ -12,6 +12,7 @@ import PayViaCash from "./_component/PayViaCash";
 import OrderStatus from "./_component/OrderStatus";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ORDERS_ROUTE } from "@/constants/routes";
+import PayViaStripe from "./_component/PayViaStripe";
 
 const OrderPage = () => {
   const [orders, setOrders] = useState([]);
@@ -78,41 +79,46 @@ const OrderPage = () => {
         <option value="DELIVERED">Delivered</option>
         <option value="CANCELLED">Cancelled</option>
       </select>
-      {orders.map((order, index) => (
-        <div key={index} className="mb-12">
-          <div className="grid grid-cols-1 lg:grid-cols-[auto_auto_auto_auto_1fr] bg-gray-100 dark:bg-gray-700 px-6 py-4 rounded-xl gap-5 text-sm lg:justify-items-end items-center">
-            <div>
-              <h3 className="text-gray-500">Status</h3>
-              <OrderStatus status={order.status} />
-            </div>
-            <div>
-              <h3 className="text-gray-500">Date Placed</h3>
-              <p className="">{format(order.createdDate, "dd MMM, yyyy")}</p>
-            </div>
-            <div>
-              <h3 className="text-gray-500">Order Number</h3>
-              <p className="">{order.orderNumber}</p>
-            </div>
-            <div>
-              <h3 className="text-gray-500">Total amount</h3>
-              <p className="">Rs. {order.totalPrice}</p>
-            </div>
-            {order.status == ORDER_PENDING && (
-              <div className="flex items-center gap-5">
-                <button
-                  className="bg-red-600 text-white px-4 py-2 rounded-md shadow"
-                  onClick={() => handleCancelOrder(order._id)}
-                >
-                  Cancel
-                </button>
-                <PayViaKhalti orderId={order._id} />
-                <PayViaCash orderId={order._id} />
+      {orders.length == 0 ? (
+        <div>No orders.</div>
+      ) : (
+        orders.map((order, index) => (
+          <div key={index} className="mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-[auto_auto_auto_auto_1fr] bg-gray-100 dark:bg-gray-700 px-6 py-4 rounded-xl gap-5 text-sm lg:justify-items-end items-center">
+              <div>
+                <h3 className="text-gray-500">Status</h3>
+                <OrderStatus status={order.status} />
               </div>
-            )}
+              <div>
+                <h3 className="text-gray-500">Date Placed</h3>
+                <p className="">{format(order.createdDate, "dd MMM, yyyy")}</p>
+              </div>
+              <div>
+                <h3 className="text-gray-500">Order Number</h3>
+                <p className="">{order.orderNumber}</p>
+              </div>
+              <div>
+                <h3 className="text-gray-500">Total amount</h3>
+                <p className="">Rs. {order.totalPrice}</p>
+              </div>
+              {order.status == ORDER_PENDING && (
+                <div className="flex items-center gap-5">
+                  <button
+                    className="bg-red-600 text-white px-4 py-2 rounded-md shadow"
+                    onClick={() => handleCancelOrder(order._id)}
+                  >
+                    Cancel
+                  </button>
+                  <PayViaKhalti orderId={order._id} />
+                  <PayViaStripe orderId={order._id} />
+                  <PayViaCash orderId={order._id} />
+                </div>
+              )}
+            </div>
+            <OrderTable key={index} order={order} />
           </div>
-          <OrderTable key={index} order={order} />
-        </div>
-      ))}
+        ))
+      )}
     </div>
   );
 };

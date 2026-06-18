@@ -9,10 +9,10 @@ import { toast } from "react-toastify";
 import { ORDER_PENDING } from "@/constants/orderStatus";
 import PayViaKhalti from "./_component/PayViaKhalti";
 import PayViaCash from "./_component/PayViaCash";
-import OrderStatus from "./_component/OrderStatus";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ORDERS_ROUTE } from "@/constants/routes";
 import PayViaStripe from "./_component/PayViaStripe";
+import OrderStatus from "@/components/orders/OrderStatus";
 
 const OrderPage = () => {
   const [orders, setOrders] = useState([]);

@@ -14,9 +14,9 @@ import { usePathname, useRouter } from "next/navigation";
 import usePreferenceStore from "@/stores/preferenceStore";
 import { FaMoon, FaSun } from "react-icons/fa6";
 import useCartStore from "@/stores/cartStore";
+import Logo from "./Logo";
 
 const Header = () => {
-  const pathName = usePathname();
   const { isAuthenticated, logout } = useAuthStore.getState();
   const { toggleTheme } = usePreferenceStore.getState();
 
@@ -24,6 +24,7 @@ const Header = () => {
   const products = useCartStore((state) => state.products);
 
   const router = useRouter();
+  const pathName = usePathname();
 
   function handleLogout() {
     logout();
@@ -31,22 +32,13 @@ const Header = () => {
     router.replace(LOGIN_ROUTE);
   }
 
+  if (pathName.startsWith("/admin")) return;
+
   return (
     <header className="py-4 shadow-md bg-white dark:bg-gray-950 sticky top-0 z-10">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Image
-              src={logo}
-              alt="FashionWear"
-              height={32}
-              width={32}
-              className="h-9"
-            />
-            <h1 className="text-2xl font-bold mt-1 text-transparent bg-linear-to-r from-primary to-secondary bg-clip-text">
-              FashionWear
-            </h1>
-          </div>
+          <Logo />
           <nav className="items-center gap-3 hidden md:flex">
             {navMenu.map((menu) => {
               const isActive =

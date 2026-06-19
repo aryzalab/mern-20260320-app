@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import OrderStatus from "@/components/orders/OrderStatus";
 import { ROLE_ADMIN } from "@/constants/userRoles";
+import EditOrder from "./EditOrder";
 
 const OrdersTable = () => {
   const [orders, setOrders] = useState([]);
@@ -97,17 +98,17 @@ const OrdersTable = () => {
                     {order.orderNumber}
                   </span>
                 </td>
-                {/* <th
+                <th
                   scope="row"
                   className="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   <div>
                     {order.orderItems.map((item, index) => (
                       <div key={index} className="flex items-center py-1">
-                        {item.product.imageUrls.length > 0 ? (
+                        {item.imageUrls.length > 0 ? (
                           <Image
-                            src={item.product.imageUrls[0]}
-                            alt={item.product.name}
+                            src={item.imageUrls[0]}
+                            alt={item.name}
                             height={64}
                             width={64}
                             className="w-12 h-12 mr-3 object-cover rounded"
@@ -116,14 +117,12 @@ const OrdersTable = () => {
                           <FaImage className="w-12 h-12 mr-3 rounded text-gray-500" />
                         )}
                         <div>
-                          <p className="font-medium">
-                            {item.product.name} ({item.quantity})
-                          </p>
+                          <p className="font-medium">{item.name}</p>
                           <span className="text-xs text-gray-500">
-                            {item.product.category},
+                            {item.category},
                           </span>
                           <span className="text-xs text-gray-500">
-                            {item.product.brand}
+                            {item.brand}
                           </span>
                         </div>
                       </div>
@@ -136,7 +135,7 @@ const OrdersTable = () => {
                   </h3>
                   <p className="text-xs">{order.user.email}</p>
                   <p className="text-xs">{order.user.phone}</p>
-                </td> */}
+                </td>
                 <td className="px-4 py-2 font-medium text-gray-500 whitespace-nowrap dark:text-white">
                   Rs. {order.totalPrice}
                 </td>
@@ -144,14 +143,10 @@ const OrdersTable = () => {
                   <OrderStatus status={order.status} />
                 </td>
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {/* {format(order.createdDate, "dd MMM, yyyy")} */}
+                  {format(order.createdDate, "dd MMM, yyyy")}
                 </td>
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <div className="flex gap-2">
-                    <Link href={`${ORDER_MANAGEMENT_ROUTE}/${order._id}/edit`}>
-                      <FaPencil className="text-blue-600" />
-                    </Link>
-                  </div>
+                  <EditOrder orderId={order._id} />
                 </td>
               </tr>
             ))

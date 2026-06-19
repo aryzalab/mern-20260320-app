@@ -39,3 +39,7 @@ export const payViaCash = async (id) => {
 export const confirmOrder = async (id, status) => {
   return await api.put(`/api/orders/${id}/confirm`, { status: status });
 };
+
+export const updateOrderStatus = async (id, status) => {
+  return await api.put(`/api/orders/${id}/status`, { status: status });
+};

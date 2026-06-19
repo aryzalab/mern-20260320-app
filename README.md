@@ -152,3 +152,11 @@
 - Products list are added to cart with quantity
 - A total price is calculated (price of products + discount + external charges + tax)
 - All the products, with total price is used to create an order
+
+====================
+
+- Product details page
+- Profile page
+- Home/Dashboard
+- Deployment
+- Reset password

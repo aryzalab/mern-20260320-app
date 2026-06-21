@@ -10,7 +10,11 @@ import PasswordInput from "@/components/PasswordInput";
 import SocialLogins from "../_components/SocialLogins";
 import Spinner from "@/components/Spinner";
 import useAuthStore from "@/stores/authStore";
-import { HOME_ROUTE, REGISTER_ROUTE } from "@/constants/routes";
+import {
+  FORGOT_PASSWORD_ROUTE,
+  HOME_ROUTE,
+  REGISTER_ROUTE,
+} from "@/constants/routes";
 import { login } from "@/api/auth";
 
 const LoginPage = () => {
@@ -97,12 +101,12 @@ const LoginPage = () => {
                     </label>
                   </div>
                 </div>
-                <a
-                  href="#"
+                <Link
+                  href={FORGOT_PASSWORD_ROUTE}
                   className="text-sm font-medium text-primary hover:underline dark:text-primary-500"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </div>
               <button
                 type="submit"

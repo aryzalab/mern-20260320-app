@@ -1,16 +1,31 @@
 "use client";
 
-import { forgotPassword } from "@/api/auth";
+import { resetPassword } from "@/api/auth";
+import PasswordInput from "@/components/PasswordInput";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const ForgotPasswordPage = () => {
-  const { register, handleSubmit, reset } = useForm();
+const ResetPasswordPage = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm();
 
-  function submitForm(data) {
-    forgotPassword(data)
+  const password = watch("password");
+
+  const searchParams = useSearchParams();
+
+  const token = searchParams.get("token");
+  const userId = searchParams.get("userId");
+
+  function submitForm() {
+    resetPassword({ token, userId, password })
       .then(() => {
-        toast.success("Email sent successfully!");
+        toast.success("Password reset successfully!");
 
         reset();
       })
@@ -22,38 +37,53 @@ const ForgotPasswordPage = () => {
       <div className="flex items-center justify-center py-10 md:py-20">
         <div className="w-full rounded-lg dark:border sm:max-w-md dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Forgot your password?
-            </h1>
-            <p className="font-light text-gray-500 dark:text-gray-400">
-              Don't fret! Just type in your email and we will send you a code to
-              reset your password!
-            </p>
+            <h2 className="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              Reset Password
+            </h2>
             <form
               onSubmit={handleSubmit(submitForm)}
               className="mt-4 space-y-4 lg:mt-5 md:space-y-5"
+              action="#"
             >
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Your email
+                  New Password
                 </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com"
+                <PasswordInput
+                  name="password"
+                  id="password"
                   required
-                  {...register("email")}
+                  {...register("password")}
                 />
+              </div>
+              <div>
+                <label
+                  htmlFor="confirm-password"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Confirm password
+                </label>
+                <PasswordInput
+                  id="confirm-password"
+                  required
+                  {...register("confirmPassword", {
+                    validate: (value) => {
+                      return value === password || "Passwords donot match.";
+                    },
+                  })}
+                />
+                <p className="text-xs m-2 text-red-600">
+                  {errors.confirmPassword?.message}
+                </p>
               </div>
               <div className="flex items-start">
                 <div className="flex items-center h-5">
                   <input
-                    id="terms"
-                    aria-describedby="terms"
+                    id="newsletter"
+                    aria-describedby="newsletter"
                     type="checkbox"
                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                     required
@@ -61,7 +91,7 @@ const ForgotPasswordPage = () => {
                 </div>
                 <div className="ml-3 text-sm">
                   <label
-                    htmlFor="terms"
+                    htmlFor="newsletter"
                     className="font-light text-gray-500 dark:text-gray-300"
                   >
                     I accept the{" "}
@@ -78,7 +108,7 @@ const ForgotPasswordPage = () => {
                 type="submit"
                 className="w-full text-white bg-primary hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Reset password
+                Reset passwod
               </button>
             </form>
           </div>
@@ -88,4 +118,4 @@ const ForgotPasswordPage = () => {
   );
 };
 
-export default ForgotPasswordPage;
+export default ResetPasswordPage;

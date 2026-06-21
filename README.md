@@ -156,7 +156,5 @@
 ====================
 
 - Product details page
-- Profile page
 - Home/Dashboard
 - Deployment
-- Reset password

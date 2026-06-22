@@ -48,7 +48,7 @@ const ProfileImage = () => {
           alt=""
           width={250}
           height={250}
-          className="h-20 w-20 rounded-full border-4 border-primary object-cover"
+          className="p-1 h-20 w-20 rounded-full border-4 border-primary object-cover"
         />
 
         <div>

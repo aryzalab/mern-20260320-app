@@ -33,7 +33,7 @@ const AuthLayout = ({ children }) => {
               alt=""
               className="hidden md:block w-full object-cover h-full"
             />
-            <div>{children}</div>
+            <div className=" dark:bg-gray-900">{children}</div>
           </div>
         </div>
       </div>

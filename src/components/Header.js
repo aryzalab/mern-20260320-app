@@ -1,8 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import logo from "@/assets/images/logo.png";
 import useAuthStore from "@/stores/authStore";
 import {
   CART_ROUTE,
@@ -15,9 +13,10 @@ import usePreferenceStore from "@/stores/preferenceStore";
 import { FaMoon, FaSun } from "react-icons/fa6";
 import useCartStore from "@/stores/cartStore";
 import Logo from "./Logo";
+import Account from "./Account";
 
 const Header = () => {
-  const { isAuthenticated, logout } = useAuthStore.getState();
+  const { isAuthenticated } = useAuthStore.getState();
   const { toggleTheme } = usePreferenceStore.getState();
 
   const theme = usePreferenceStore((state) => state.theme);
@@ -25,12 +24,6 @@ const Header = () => {
 
   const router = useRouter();
   const pathName = usePathname();
-
-  function handleLogout() {
-    logout();
-
-    router.replace(LOGIN_ROUTE);
-  }
 
   if (pathName.startsWith("/admin")) return;
 
@@ -59,7 +52,7 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <button
               onClick={toggleTheme}
-              className="px-2 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 dark:text-white"
+              className="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 dark:text-white h-10 w-10"
             >
               {theme == "light" ? <FaMoon /> : <FaSun />}
             </button>
@@ -68,20 +61,14 @@ const Header = () => {
               <>
                 <Link
                   href={CART_ROUTE}
-                  className="px-4 pt-1 pb-2 rounded-3xl bg-gray-100 dark:bg-gray-700 h-auto"
+                  className="px-4 py-1.5 rounded-3xl bg-gray-100 dark:bg-gray-700 h-10"
                 >
                   🛒
-                  <span className="bg-primary px-2 py-0.5 text-xs rounded-xl text-white">
+                  <span className="ml-1 bg-primary px-2 py-0.5 text-xs rounded-xl text-white">
                     {products.length}
                   </span>
                 </Link>
-                <button
-                  type="button"
-                  className="hover:bg-primary text-white px-5 py-1.5 rounded-lg bg-primary-dark cursor-pointer"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
+                <Account />
               </>
             ) : (
               <Link

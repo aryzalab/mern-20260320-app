@@ -103,7 +103,7 @@ const Filters = ({ brands, categories }) => {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
         >
           <option value="">Select category</option>
-          {categories.map((category, index) => (
+          {categories?.map((category, index) => (
             <option key={index} value={category}>
               {category}
             </option>
@@ -114,7 +114,7 @@ const Filters = ({ brands, categories }) => {
       <div className="py-2">
         <h4>Brands:</h4>
         <div>
-          {brands.map((brand, index) => (
+          {brands?.map((brand, index) => (
             <div key={index} className="flex items-center mb-1 ">
               <input
                 id={brand}

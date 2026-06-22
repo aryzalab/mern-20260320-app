@@ -20,7 +20,7 @@ const ForgotPasswordPage = () => {
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex items-center justify-center py-10 md:py-20">
-        <div className="w-full rounded-lg dark:border sm:max-w-md dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full rounded-lg  sm:max-w-md dark:bg-gray-900 ">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Forgot your password?

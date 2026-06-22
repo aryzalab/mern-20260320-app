@@ -11,6 +11,7 @@
   "dependencies": {
     "@stripe/react-stripe-js": "^6.6.0",
     "@stripe/stripe-js": "^9.8.0",
+    "@uiw/react-markdown-preview": "^5.2.1",
     "axios": "^1.17.0",
     "date-fns": "^4.4.0",
     "next": "16.2.7",

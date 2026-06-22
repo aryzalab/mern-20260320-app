@@ -4,6 +4,7 @@ import { ROLE_ADMIN } from "./userRoles";
 
 export const HOME_ROUTE = "/";
 export const ABOUT_ROUTE = "/about";
+export const PROFILE_ROUTE = "/profile";
 export const CONTACT_ROUTE = "/contact";
 export const PRODUCTS_ROUTE = "/products";
 export const ORDER_ROUTE = "/orders";
@@ -32,10 +33,6 @@ export const navMenu = [
   {
     label: "Products",
     route: PRODUCTS_ROUTE,
-  },
-  {
-    label: "Orders",
-    route: ORDER_ROUTE,
   },
   {
     label: "Contact",

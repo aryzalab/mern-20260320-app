@@ -1,5 +1,6 @@
 import placeholder from "@/assets/images/placeholder.png";
 import Image from "next/image";
+import Filters from "./_components/Filters";
 
 const LoadingCard = () => {
   return (
@@ -31,15 +32,18 @@ const Loading = () => {
   return (
     <>
       <h2 className="mb-8 text-2xl dark:text-white">Featured products</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <LoadingCard />
-        <LoadingCard />
-        <LoadingCard />
-        <LoadingCard />
-        <LoadingCard />
-        <LoadingCard />
-        <LoadingCard />
-        <LoadingCard />
+      <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_2fr] xl:grid-cols-[1fr_3fr]">
+        <Filters />
+        <div className="self-start grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+          <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
+        </div>
       </div>
     </>
   );

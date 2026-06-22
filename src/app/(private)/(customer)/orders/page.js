@@ -102,16 +102,18 @@ const OrderPage = () => {
                 <p className="">Rs. {order.totalPrice}</p>
               </div>
               {order.status == ORDER_PENDING && (
-                <div className="flex items-center gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-2 md:gap-3 md:justify-items-end">
                   <button
-                    className="bg-red-600 text-white px-4 py-2 rounded-md shadow"
+                    className="bg-red-600 text-white px-4 py-2 rounded-md shadow md:w-max"
                     onClick={() => handleCancelOrder(order._id)}
                   >
                     Cancel
                   </button>
-                  <PayViaKhalti orderId={order._id} />
-                  <PayViaStripe orderId={order._id} />
-                  <PayViaCash orderId={order._id} />
+                  <div className="grid grid-cols-3 items-center gap-2 md:gap-3">
+                    <PayViaKhalti orderId={order._id} />
+                    <PayViaStripe orderId={order._id} />
+                    <PayViaCash orderId={order._id} />
+                  </div>
                 </div>
               )}
             </div>

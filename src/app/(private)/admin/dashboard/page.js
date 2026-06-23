@@ -3,6 +3,7 @@
 import { getAllOrders } from "@/api/orders";
 import { getProducts } from "@/api/products";
 import { getAllUsers } from "@/api/users";
+import Spinner from "@/components/Spinner";
 import { ORDER_CONFIRMED, ORDER_PENDING } from "@/constants/orderStatus";
 import { useEffect, useState } from "react";
 import { FaCheckCircle, FaShoppingCart, FaUsers } from "react-icons/fa";
@@ -25,17 +26,30 @@ const Card = ({ value, label, color, background, border, Icon }) => {
 };
 
 const DashboardPage = () => {
+  const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
 
-  function fetchDashboardData() {
-    getAllOrders().then((response) => setOrders(response.data));
-    getAllUsers().then((response) => setUsers(response.data));
-    getProducts().then((data) => setProducts(data));
+  async function fetchDashboardData() {
+    try {
+      await getAllOrders().then((response) => setOrders(response.data));
+      await getAllUsers().then((response) => setUsers(response.data));
+      await getProducts().then((data) => setProducts(data));
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   }
 
   useEffect(() => fetchDashboardData, []);
+
+  if (loading)
+    return (
+      <div className="py-24 flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">

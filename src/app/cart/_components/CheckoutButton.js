@@ -1,6 +1,7 @@
 import { createOrder } from "@/api/orders";
 import Spinner from "@/components/Spinner";
-import { ORDERS_ROUTE } from "@/constants/routes";
+import { LOGIN_ROUTE, ORDERS_ROUTE } from "@/constants/routes";
+import useAuthStore from "@/stores/authStore";
 import useCartStore from "@/stores/cartStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,9 +11,19 @@ const CheckoutButton = ({ products, totalPrice }) => {
   const [loading, setLoading] = useState(false);
   const { clearCart } = useCartStore.getState();
 
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
   const router = useRouter();
 
   function checkoutOrder() {
+    if (!isAuthenticated) {
+      router.replace(LOGIN_ROUTE);
+
+      toast.info("Please login to checkout products.")
+
+      return;
+    }
+
     setLoading(true);
 
     createOrder({

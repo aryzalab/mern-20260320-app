@@ -57,19 +57,18 @@ const Header = () => {
               {theme == "light" ? <FaMoon /> : <FaSun />}
             </button>
 
+            <Link
+              href={CART_ROUTE}
+              className="px-4 py-1.5 rounded-3xl bg-gray-100 dark:bg-gray-700 h-10"
+            >
+              🛒
+              <span className="ml-1 bg-primary px-2 py-0.5 text-xs rounded-xl text-white">
+                {products.length}
+              </span>
+            </Link>
+
             {isAuthenticated ? (
-              <>
-                <Link
-                  href={CART_ROUTE}
-                  className="px-4 py-1.5 rounded-3xl bg-gray-100 dark:bg-gray-700 h-10"
-                >
-                  🛒
-                  <span className="ml-1 bg-primary px-2 py-0.5 text-xs rounded-xl text-white">
-                    {products.length}
-                  </span>
-                </Link>
-                <Account />
-              </>
+              <Account />
             ) : (
               <Link
                 className="hover:bg-primary text-white px-5 py-1.5 rounded-lg bg-primary-dark"

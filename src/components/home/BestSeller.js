@@ -1,12 +1,11 @@
 import { getProductById } from "@/api/products";
+import config from "@/config";
 import { PRODUCTS_ROUTE } from "@/constants/routes";
 import Image from "next/image";
 import Link from "next/link";
 
-const bestProductId = "6a39585d4099014dff5ad87e";
-
 const BestSeller = async () => {
-  const product = await getProductById(bestProductId);
+  const product = await getProductById(config.bestSellerId);
 
   return (
     <section id="best-seller" className="py-12 bg-white dark:bg-gray-900">
@@ -27,10 +26,10 @@ const BestSeller = async () => {
               {product?.description?.slice(0, 300)}...
             </p>
             <h3 className="dark:text-white text-2xl font-semibold">
-              Rs. {product.price}
+              Rs. {product?.price}
             </h3>
             <Link
-              href={`${PRODUCTS_ROUTE}/${bestProductId}`}
+              href={`${PRODUCTS_ROUTE}/${config.bestSellerId}`}
               className="inline-block bg-primary dark:bg-white rounded-3xl font-medium text-white dark:text-primary px-8 py-3 transition duration-300 ease mt-4"
             >
               View Product

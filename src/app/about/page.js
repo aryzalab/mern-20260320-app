@@ -8,10 +8,10 @@ const AboutPage = () => {
       <h1 className="text-5xl font-black mb-5">About page</h1>
       <p>
         An effective About Us page builds trust and converts visitors by sharing
-        your brand's story, mission, and unique value. It is the second most
-        visited page on a website and your primary opportunity to humanize your
-        business.Core Elements to IncludeYour Origin Story: Explain how and why
-        you started, the problem you identified, and the journey you took to
+        your brand&apos;s story, mission, and unique value. It is the second
+        most visited page on a website and your primary opportunity to humanize
+        your business.Core Elements to IncludeYour Origin Story: Explain how and
+        why you started, the problem you identified, and the journey you took to
         solve it.Mission and Vision: Clearly state what your business stands for
         and the ultimate goal you are trying to achieve.The People Behind the
         Brand: Introduce your founders or team members with bios and candid

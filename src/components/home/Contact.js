@@ -50,7 +50,7 @@ const Contact = () => {
           </form>
           <div className="info">
             <h2 className="text-3xl dark:text-white font-bold">
-              Let's Connect
+              Let&apos;s Connect
             </h2>
             <p className="text-light dark:text-gray-300 text-sm my-4">
               Have any questions? Please reach out to us.

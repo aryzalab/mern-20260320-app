@@ -4,11 +4,12 @@ import api from "./api";
 import { formatParams } from "@/helpers/params";
 
 export const getProducts = async (searchParams) => {
-  const query = formatParams(searchParams);
+  const query = formatParams({
+    ...searchParams,
+    limit: searchParams?.limit || 100,
+  });
 
-  const response = await axios.get(
-    `${config.apiUrl}/api/products?limit=100&${query}`,
-  );
+  const response = await axios.get(`${config.apiUrl}/api/products?${query}`);
 
   return response.data;
 };

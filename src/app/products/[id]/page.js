@@ -55,12 +55,12 @@ const ProductDetailsPage = async ({ params }) => {
             Rs. {product.price}
           </h3>
           <p className="text-gray-700 dark:text-gray-300">
-            Whether you're hitting the pavement for a quick jog or embarking on
-            a longer training session, your feet will thank you for the
-            exceptional cushioning and responsive ride. The breathable
+            Whether you&apos;re hitting the pavement for a quick jog or
+            embarking on a longer training session, your feet will thank you for
+            the exceptional cushioning and responsive ride. The breathable
             engineered mesh upper ensures optimal airflow, preventing
             overheating and discomfort. Its flexible yet supportive structure
-            adapts to your foot's natural movement, providing a snug,
+            adapts to your foot&apos;s natural movement, providing a snug,
             personalized fit without sacrificing freedom.
           </p>
           <div className="grid grid-cols-[1fr_auto] gap-5 py-5">

@@ -7,5 +7,5 @@ export function formatParams(searchParams) {
     if (value) query += `${key}=${value}&`;
   });
 
-  return query;
+  return query.slice(0, query.length - 1);
 }

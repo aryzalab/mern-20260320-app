@@ -20,7 +20,7 @@ const Sidebar = () => {
           {adminMenu.map((item) => {
             const isActive = pathName.startsWith(item.route);
 
-            if (item.allowedRole && !user.roles.includes(item.allowedRole))
+            if (item.allowedRole && !user?.roles.includes(item.allowedRole))
               return;
 
             return (

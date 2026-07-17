@@ -43,3 +43,9 @@ export const getBrands = async () => {
 
   return response.data;
 };
+
+export const getTotalCount = async () => {
+  const response = await axios.get(`${config.apiUrl}/api/products/count`);
+
+  return response.data;
+};

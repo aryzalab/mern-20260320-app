@@ -3,34 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import Spinner from "@/components/Spinner";
-import useAuthStore from "@/stores/authStore";
-import { FaCog } from "react-icons/fa";
 import { FaImage, FaPencil, FaTrash } from "react-icons/fa6";
 import { PRODUCT_MANAGEMENT_ROUTE } from "@/constants/routes";
 import { format } from "date-fns";
-import { deleteProduct, getProducts } from "@/api/products";
-import { useEffect, useState } from "react";
+import { deleteProduct } from "@/api/products";
 import { toast } from "react-toastify";
+import TableHeader from "./TableHeader";
 
-const ProductsTable = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const { user } = useAuthStore.getState();
-
-  function fetchProducts() {
-    getProducts({ createdBy: user._id })
-      .then((data) => {
-        setProducts(data);
-      })
-      .catch((error) => console.log(error))
-      .finally(() => setLoading(false));
-  }
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
+const ProductsTable = ({ products, loading }) => {
   if (loading)
     return (
       <div className="flex justify-center">
@@ -41,31 +21,7 @@ const ProductsTable = () => {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-4 py-3">
-              Product
-            </th>
-            <th scope="col" className="px-4 py-3">
-              Category
-            </th>
-            <th scope="col" className="px-4 py-3">
-              Brand
-            </th>
-            <th scope="col" className="px-4 py-3">
-              Price
-            </th>
-            <th scope="col" className="px-4 py-3">
-              Stock
-            </th>
-            <th scope="col" className="px-4 py-3">
-              Created At
-            </th>
-            <th scope="col" className="px-4 py-3">
-              <FaCog />
-            </th>
-          </tr>
-        </thead>
+        <TableHeader />
         <tbody>
           {products.length == 0 ? (
             <tr>
